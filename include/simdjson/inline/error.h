@@ -1,6 +1,7 @@
 #ifndef SIMDJSON_INLINE_ERROR_H
 #define SIMDJSON_INLINE_ERROR_H
 
+#include <cstring>
 #include "simdjson/error.h"
 #include <string>
 
