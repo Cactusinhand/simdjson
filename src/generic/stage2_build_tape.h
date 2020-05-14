@@ -240,8 +240,11 @@ struct structural_parser {
   }
 
   WARN_UNUSED really_inline bool parse_number(const uint8_t *src, bool found_minus) {
-    number_writer writer{doc_parser.next_loc};
-    return !numberparsing::parse_number(src, found_minus, writer);
+    auto result = numberparsing::parse_number(src, found_minus);
+    write_tape(0, result.type);
+    *doc_parser.next_loc = result.u; // just take the unsigned version
+    doc_parser.next_loc++;
+    return !result.success;
   }
   WARN_UNUSED really_inline bool parse_number(bool found_minus) {
     return parse_number(structurals.current(), found_minus);
